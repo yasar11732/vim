@@ -1,7 +1,7 @@
 let mapleader = ","
 set incsearch
-set hlsearch
 set nocompatible
+set nohlsearch
 set backspace=indent,eol,start
 if has("vms")
     set nobackup
@@ -42,10 +42,18 @@ if has("autocmd")
   " Treat .rss files as XML
   autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
-nnoremap <F5> :%s/\s\+$//e<CR>
-set hidden
+"Birden fazla boş satırı tek boş satıra dönüştürme"
+nnoremap <F4> mp:g/^$/,/./-j<CR>`p
+"Satır sonlarındaki boşlukları temizleme kısayolu"
+nnoremap <F5> mp:%s/\s\+$//e<CR>`p
+"Tüm metini girintileme kısayolu"
+nnoremap <F6> mpgg=G`p
+
+"set hidden"
+"Rasgele 10 karakter oluşturucu..."
 imap <c-j>d <c-r>=system("/home/yasar/myscripts/rasgele.py")
 
+"Toolbar'ı kaldır."
 set go-=T
 
 "pencere geçişleri"
@@ -56,10 +64,9 @@ map <C-j> <C-w>j
 
 "Aynı klasörden dosya açma kısayolu"
 map <leader>ew :e <C-R>=expand('%:p:h') . "/" <CR>
-map <leader>p :w !python2<CR>
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
 
-"Word buble"
+"Satır kaydırma"
 nmap <C-Down> ddp
 nmap <C-Up> ddkP
 "php sözlük dosyası"
@@ -67,8 +74,12 @@ if has("autocmd")
     autocmd FileType php set complete+=k/home/yasar/.vim/dics/PHP.dict
 endif
 
-"python dosyası"
+"python sözlük dosyası"
 if has("autocmd")
     autocmd FileType python set complete+=k/home/yasar/.vim/dics/complete-dict
 endif
 
+"Çalışma yolunu proje dizinime ayarla"
+set path+=/home/yasar/Desktop/pub_html/application/**
+"Projemin tag dosyasını dahil et"
+set tags+=/home/yasar/Desktop/pub_html/tags

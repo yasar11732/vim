@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # Last modified: July 23rd, 2009
 """
 
